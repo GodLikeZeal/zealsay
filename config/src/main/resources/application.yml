@@ -1,3 +1,5 @@
+server:
+  port: 8070
 
 spring:
   application:
@@ -9,6 +11,7 @@ spring:
      server:
        git:
          uri: https://github.com/GodLikeZeal/zealsay-config.git
+#     uri: https://github.com/GodLikeZeal/zealsay-config.git
 
 ---
 spring:
@@ -21,4 +24,4 @@ eureka:
     hostname: localhost
   client:
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:1025/eureka/
+      defaultZone: http://${eureka.instance.hostname}:8071/eureka/
