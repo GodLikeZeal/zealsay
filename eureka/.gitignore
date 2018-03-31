@@ -23,15 +23,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-/.mvn
-/mvnw
-/mvnw.cmd
-/modules/admin/.mvn
-/modules/admin/mvnw
-/modules/admin/mvnw.cmd
-/config/.mvn
-/config/mvnw
-/config/mvnw.cmd
-/eureka/.mvn
-/eureka/mvnw
-/eureka/mvnw.cmd
