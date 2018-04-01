@@ -3,6 +3,7 @@ package com.zeal.config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.config.server.EnableConfigServer;
 
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 *@date 2018/3/31 18:50
 *@version 1.0.0
 */
+@EnableConfigServer
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ConfigApplication {

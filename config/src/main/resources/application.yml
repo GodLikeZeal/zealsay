@@ -11,6 +11,8 @@ spring:
      server:
        git:
          uri: https://github.com/GodLikeZeal/zealsay-config.git
+     label: master
+     profile: ${spring.profiles.active}
 #     uri: https://github.com/GodLikeZeal/zealsay-config.git
 
 ---

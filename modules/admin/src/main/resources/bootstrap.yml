@@ -11,7 +11,7 @@ spring:
         service-id: config-server
         enabled: true
       profile: ${spring.profiles.active}
-      name: ${spring.profiles.active}
+      name: ${spring.application.name}
 
 
 ---
