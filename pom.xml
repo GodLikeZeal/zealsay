@@ -7,10 +7,18 @@
 	<artifactId>zealsay</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
+		<!--安全认证-->
+		<module>auth</module>
+		<!--通用封装模块-->
 		<module>common</module>
+		<!--业务划分模块-->
 		<module>modules</module>
+		<!--配置中心-->
 		<module>config</module>
+		<!--服务注册中心-->
 		<module>eureka</module>
+		<!--链路监控中心-->
+		<module>zipkin</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -38,10 +46,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -61,10 +65,21 @@
 			<version>${eureka.version}</version>
 		</dependency>
 
-		<!--监控-->
+		<!--监控中心-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+		</dependency>
+
+		<!--Lombok-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 		</dependency>
 
 	</dependencies>
@@ -90,5 +105,12 @@
 		</plugins>
 	</build>
 
-
+	<!-- 使用aliyun镜像 -->
+	<!--<repositories>-->
+		<!--<repository>-->
+			<!--<id>aliyun</id>-->
+			<!--<name>aliyun</name>-->
+			<!--<url>http://maven.aliyun.com/nexus/content/groups/public</url>-->
+		<!--</repository>-->
+	<!--</repositories>-->
 </project>
