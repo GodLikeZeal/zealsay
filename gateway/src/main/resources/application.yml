@@ -34,7 +34,7 @@ host:
      connect-timeout-millis: 30000
      socket-timeout-millis: 30000
 ratelimit:
-  key-prefix: pig-ratelimite
+  key-prefix: zeal
   enabled: true
   repository: REDIS
   behind-proxy: true
