@@ -1,0 +1,48 @@
+server:
+  port: 8073
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: zeal
+    password: zeal
+  zipkin:
+    rabbitmq:
+      queue: zipkin
+  sleuth:
+    sampler:
+      percentage: 1.0
+
+zuul:
+  ignored-services: '*'
+  routes:
+   admin:
+      path:  /admin/**
+      serviceId: admin
+      stripPrefix: true
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+   auth:
+      path:  /auth/**
+      serviceId: auth
+      stripPrefix: true
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+ribbon:
+  eager-load:
+    clients: auth,admin
+host:
+     connect-timeout-millis: 30000
+     socket-timeout-millis: 30000
+ratelimit:
+  key-prefix: pig-ratelimite
+  enabled: true
+  repository: REDIS
+  behind-proxy: true
+policies:
+  pig-upms-service:
+    limit: 100
+    quota: 100
+    refresh-interval: 3
+
+
+

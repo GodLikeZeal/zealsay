@@ -1,18 +1,16 @@
-server:
-  port: 8070
-
 spring:
   application:
-    name: config-server
+    name: gateway
   profiles:
     active: dev
   cloud:
-   config:
-     server:
-       git:
-         uri: https://github.com/GodLikeZeal/zealsay-config.git
-     label: master
-     profile: ${spring.profiles.active}
+    config:
+      fail-fast: true
+      discovery:
+        service-id: config-server
+        enabled: true
+      profile: ${spring.profiles.active}
+      name: ${spring.application.name}
 
 ---
 spring:

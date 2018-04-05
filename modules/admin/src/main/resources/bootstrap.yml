@@ -5,7 +5,6 @@ spring:
     active: dev
   cloud:
     config:
-#      uri: localhost:8888/admin
       fail-fast: true
       discovery:
         service-id: config-server
