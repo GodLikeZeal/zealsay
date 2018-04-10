@@ -4,11 +4,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author lengleng
- * @date 2017/10/28
- */
+*@description
+*@author  zeal
+*@date  2018-04-10  11:37
+*@version 1.0.0
+*/
 @Configuration
-@ConfigurationProperties(prefix = "pig.auth")
+@ConfigurationProperties(prefix = "zeal.auth")
 public class AuthServerConfig {
     private String clientId;
     private String clientSecret;

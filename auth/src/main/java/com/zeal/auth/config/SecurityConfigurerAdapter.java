@@ -1,7 +1,8 @@
 package com.zeal.auth.config;
 
-import com.github.pig.auth.component.mobile.MobileSecurityConfigurer;
-import com.github.pig.common.bean.config.FilterUrlsPropertiesConfig;
+
+import com.zeal.auth.component.mobile.MobileSecurityConfigurer;
+import com.zeal.zealsay.common.config.FilterUrlsPropertiesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,12 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 
 /**
- * @author lengleng
- * @date 2018/3/10
- */
+*@description spring security配置
+*@author  zeal
+*@date  2018-04-10  11:34
+*@version 1.0.0
+*/
 @Configuration
 @EnableWebSecurity
-public class PigSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     @Autowired
     private FilterUrlsPropertiesConfig filterUrlsPropertiesConfig;
     @Autowired
@@ -24,7 +27,8 @@ public class PigSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry =
-                http.formLogin().loginPage("/authentication/require")
+                http
+                        .formLogin().loginPage("/authentication/require")
                         .loginProcessingUrl("/authentication/form")
                         .and()
                         .authorizeRequests();

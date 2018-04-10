@@ -1,9 +1,11 @@
 package com.zeal.auth.component.mobile;
 
+import cn.hutool.core.map.MapUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.pig.common.constant.CommonConstant;
-import com.xiaoleilu.hutool.map.MapUtil;
+
+
+import com.zeal.zealsay.common.constant.AuthConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,8 +75,8 @@ public class MobileLoginSuccessHandler implements AuthenticationSuccessHandler {
             OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
             logger.info("获取token 成功：{}", oAuth2AccessToken.getValue());
 
-            response.setCharacterEncoding(CommonConstant.UTF8);
-            response.setContentType(CommonConstant.CONTENT_TYPE);
+            response.setCharacterEncoding(AuthConstants.UTF8);
+            response.setContentType(AuthConstants.CONTENT_TYPE);
             PrintWriter printWriter = response.getWriter();
             printWriter.append(objectMapper.writeValueAsString(oAuth2AccessToken));
         } catch (IOException e) {
@@ -101,7 +103,7 @@ public class MobileLoginSuccessHandler implements AuthenticationSuccessHandler {
                     "Failed to decode basic authentication token");
         }
 
-        String token = new String(decoded, CommonConstant.UTF8);
+        String token = new String(decoded, AuthConstants.UTF8);
 
         int delim = token.indexOf(":");
 

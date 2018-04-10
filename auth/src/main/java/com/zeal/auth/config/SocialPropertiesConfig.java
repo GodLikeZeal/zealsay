@@ -3,10 +3,11 @@ package com.zeal.auth.config;
 import lombok.Data;
 
 /**
- * @author lengleng
- * @date 2017/10/28
- * social 登录基础配置
- */
+*@description social 登录基础配置
+*@author  zeal
+*@date  2018-04-10  11:27
+*@version 1.0.0
+*/
 @Data
 public class SocialPropertiesConfig {
     /**

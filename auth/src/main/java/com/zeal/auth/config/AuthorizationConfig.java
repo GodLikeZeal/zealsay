@@ -1,7 +1,7 @@
 package com.zeal.auth.config;
 
-import com.github.pig.common.constant.CommonConstant;
-import com.github.pig.common.constant.SecurityConstants;
+import com.zeal.zealsay.common.constant.AuthConstants;
+import com.zeal.zealsay.common.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,23 +20,23 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author lengleng
- * @date 2017/10/27
- * 认证服务器逻辑实现
- */
 
+/**
+*@description 认证服务器逻辑实现
+*@author  zeal
+*@date  2018-04-10  11:22
+*@version 1.0.0
+*/
 @Configuration
 @Order(Integer.MIN_VALUE)
 @EnableAuthorizationServer
-public class PigAuthorizationConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthServerConfig authServerConfig;
@@ -89,9 +89,9 @@ public class PigAuthorizationConfig extends AuthorizationServerConfigurerAdapter
     }
 
     @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new PigJwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey(CommonConstant.SIGN_KEY);
+    public org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter jwtAccessTokenConverter() {
+        org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter jwtAccessTokenConverter = new ZealJwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey(AuthConstants.SIGN_KEY);
         return jwtAccessTokenConverter;
     }
 
@@ -102,7 +102,7 @@ public class PigAuthorizationConfig extends AuthorizationServerConfigurerAdapter
     @Bean
     public TokenStore redisTokenStore() {
         RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        tokenStore.setPrefix(SecurityConstants.PIG_PREFIX);
+        tokenStore.setPrefix(SecurityConstants.PREFIX);
         return tokenStore;
     }
 
@@ -114,7 +114,7 @@ public class PigAuthorizationConfig extends AuthorizationServerConfigurerAdapter
     public TokenEnhancer tokenEnhancer() {
         return (accessToken, authentication) -> {
             final Map<String, Object> additionalInfo = new HashMap<>(1);
-            additionalInfo.put("license", SecurityConstants.PIG_LICENSE);
+            additionalInfo.put("license", SecurityConstants.ZEAL_LICENSE);
             ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
             return accessToken;
         };
