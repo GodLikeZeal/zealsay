@@ -1,26 +1,28 @@
 package com.zeal.auth.serivce;
 
-import com.github.pig.auth.feign.UserService;
-import com.github.pig.auth.util.UserDetailsImpl;
-import com.github.pig.common.vo.UserVO;
+
+import com.zeal.auth.feign.UserDao;
+import com.zeal.auth.util.UserDetailsImpl;
+import com.zeal.zealsay.common.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * @author lengleng
- * @date 2017/10/26
- * <p>
- */
+*@description userDetailService security里面用来查询用户名和密码的
+*@author  zeal
+*@date  2018-04-10  15:42
+*@version 1.0.0
+*/
 @Service("userDetailService")
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailServiceImp implements UserDetailsService {
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     @Override
     public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserVO userVo = userService.findUserByUsername(username);
+        SysUser userVo = userDao.findUserByUsername(username);
         return new UserDetailsImpl(userVo);
     }
 }

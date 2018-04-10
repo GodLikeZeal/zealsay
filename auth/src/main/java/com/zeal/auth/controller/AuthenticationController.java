@@ -1,7 +1,8 @@
 package com.zeal.auth.controller;
 
-import com.github.pig.common.constant.SecurityConstants;
-import com.github.pig.common.util.R;
+
+import com.zeal.zealsay.common.constant.SecurityConstants;
+import com.zeal.zealsay.common.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;
@@ -51,7 +52,7 @@ public class AuthenticationController {
      */
     @PostMapping("/removeToken")
     @CacheEvict(value = SecurityConstants.TOKEN_USER_DETAIL, key = "#accesstoken")
-    public R<Boolean> removeToken(String accesstoken) {
-        return new R<>( consumerTokenServices.revokeToken(accesstoken));
+    public Result removeToken(String accesstoken) {
+        return new Result( consumerTokenServices.revokeToken(accesstoken));
     }
 }

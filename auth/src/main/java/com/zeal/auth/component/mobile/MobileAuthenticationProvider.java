@@ -1,39 +1,41 @@
 package com.zeal.auth.component.mobile;
 
-import com.github.pig.auth.feign.UserService;
-import com.github.pig.auth.util.UserDetailsImpl;
-import com.github.pig.common.vo.UserVO;
+import com.zeal.auth.feign.UserDao;
+import com.zeal.auth.util.UserDetailsImpl;
+import com.zeal.zealsay.common.entity.SysUser;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
- * @author lengleng
- * @date 2018/1/9
- * 手机号登录校验逻辑
- */
+*@description 手机号登录校验逻辑
+*@author  zeal
+*@date  2018-04-10  15:52
+*@version 1.0.0
+*/
 public class MobileAuthenticationProvider implements AuthenticationProvider {
-    private UserService userService;
+
+    private UserDao userDao;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         MobileAuthenticationToken mobileAuthenticationToken = (MobileAuthenticationToken) authentication;
-        UserVO userVo = userService.findUserByMobile((String) mobileAuthenticationToken.getPrincipal());
+        SysUser sysUser = userDao.findUserByMobile((String) mobileAuthenticationToken.getPrincipal());
 
-        if (userVo == null) {
+        if (sysUser == null) {
             throw new UsernameNotFoundException("手机号不存在:" + mobileAuthenticationToken.getPrincipal());
         }
 
-        UserDetailsImpl userDetails = buildUserDeatils(userVo);
+        UserDetailsImpl userDetails = buildUserDeatils(sysUser);
 
         MobileAuthenticationToken authenticationToken = new MobileAuthenticationToken(userDetails, userDetails.getAuthorities());
         authenticationToken.setDetails(mobileAuthenticationToken.getDetails());
         return authenticationToken;
     }
 
-    private UserDetailsImpl buildUserDeatils(UserVO userVo) {
-        return new UserDetailsImpl(userVo);
+    private UserDetailsImpl buildUserDeatils(SysUser sysUser) {
+        return new UserDetailsImpl(sysUser);
     }
 
     @Override
@@ -41,11 +43,11 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
         return MobileAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
-    public UserService getUserService() {
-        return userService;
+    public UserDao getUserDao() {
+        return userDao;
     }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

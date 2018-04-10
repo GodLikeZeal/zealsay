@@ -18,4 +18,9 @@ public class Result<T> implements Serializable {
     private String code;
     //返回对象
     private T data;
+
+    public Result(T data) {
+        this.data=data;
+        this.code="ok";
+    }
 }

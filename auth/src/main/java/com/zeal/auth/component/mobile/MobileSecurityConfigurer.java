@@ -1,6 +1,6 @@
 package com.zeal.auth.component.mobile;
 
-import com.github.pig.auth.feign.UserService;
+import com.zeal.auth.feign.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -20,7 +20,7 @@ public class MobileSecurityConfigurer extends SecurityConfigurerAdapter<DefaultS
     @Autowired
     private AuthenticationSuccessHandler mobileLoginSuccessHandler;
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -29,7 +29,7 @@ public class MobileSecurityConfigurer extends SecurityConfigurerAdapter<DefaultS
         mobileAuthenticationFilter.setAuthenticationSuccessHandler(mobileLoginSuccessHandler);
 
         MobileAuthenticationProvider mobileAuthenticationProvider = new MobileAuthenticationProvider();
-        mobileAuthenticationProvider.setUserService(userService);
+        mobileAuthenticationProvider.setUserDao(userDao);
         http.authenticationProvider(mobileAuthenticationProvider)
                 .addFilterAfter(mobileAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }

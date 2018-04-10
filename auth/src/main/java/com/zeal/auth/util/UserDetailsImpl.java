@@ -1,9 +1,10 @@
 package com.zeal.auth.util;
 
-import com.github.pig.common.constant.CommonConstant;
-import com.github.pig.common.constant.SecurityConstants;
-import com.github.pig.common.vo.SysRole;
-import com.github.pig.common.vo.UserVO;
+
+import com.zeal.zealsay.common.constant.AuthConstants;
+import com.zeal.zealsay.common.constant.SecurityConstants;
+import com.zeal.zealsay.common.entity.SysRole;
+import com.zeal.zealsay.common.entity.SysUser;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,9 +15,11 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author lengleng
- * @date 2017/10/29
- */
+*@description
+*@author  zeal
+*@date  2018-04-10  15:48
+*@version 1.0.0
+*/
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -25,11 +28,11 @@ public class UserDetailsImpl implements UserDetails {
     private String status;
     private List<SysRole> roleList = new ArrayList<>();
 
-    public UserDetailsImpl(UserVO userVo) {
-        this.username = userVo.getUsername();
-        this.password = userVo.getPassword();
-        this.status = userVo.getDelFlag();
-        roleList = userVo.getRoleList();
+    public UserDetailsImpl(SysUser sysUser) {
+        this.username = sysUser.getUsername();
+        this.password = sysUser.getPassword();
+        this.status = sysUser.getDelFlag();
+        roleList = sysUser.getRoleList();
     }
 
     @Override
@@ -59,7 +62,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return StringUtils.equals(CommonConstant.STATUS_LOCK, status) ? false : true;
+        return StringUtils.equals(AuthConstants.STATUS_LOCK, status) ? false : true;
     }
 
     @Override
@@ -69,7 +72,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return StringUtils.equals(CommonConstant.STATUS_NORMAL, status) ? true : false;
+        return StringUtils.equals(AuthConstants.STATUS_NORMAL, status) ? true : false;
     }
 
     public void setUsername(String username) {

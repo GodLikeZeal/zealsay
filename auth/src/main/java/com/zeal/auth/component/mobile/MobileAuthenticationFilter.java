@@ -1,6 +1,7 @@
 package com.zeal.auth.component.mobile;
 
-import com.github.pig.common.constant.SecurityConstants;
+
+import com.zeal.zealsay.common.constant.SecurityConstants;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
