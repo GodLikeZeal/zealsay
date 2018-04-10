@@ -1,13 +1,26 @@
 package com.zeal.zealsay.common.web;
 
-import lombok.Data;
+
+
+import java.io.Serializable;
 
 /**
-*@description 基础封装实体类
-*@author  zeal
-*@date  2018-04-10  15:20
-*@version 1.0.0
-*/
-@Data
-public class BaseEntity {
+ * Created by Zeal on 2017/1/20.
+ */
+public abstract class BaseEntity<T> implements Cloneable,Serializable {
+
+    @Override
+    public T clone() throws CloneNotSupportedException {
+        T newBody =  (T) super.clone();
+        return newBody;
+    }
+    protected String islike; //是否模糊搜索
+
+    public String getIslike() {
+        return islike;
+    }
+
+    public void setIslike(String islike) {
+        this.islike = islike;
+    }
 }

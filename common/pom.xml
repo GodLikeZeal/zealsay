@@ -71,6 +71,12 @@
             <version>${mybatis-plus.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatisplus-spring-boot-starter</artifactId>
+            <version>${mybatis-spring-plus.version}</version>
+        </dependency>
+
         <!--切面增强AOP-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
