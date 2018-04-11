@@ -49,7 +49,7 @@
     </appender>
 
     <!-- Level: FATAL 0  ERROR 3  WARN 4  INFO 6  DEBUG 7 -->
-    <root level="INFO">
+    <root level="debug">
         <appender-ref ref="console" />
         <appender-ref ref="debug" />
         <appender-ref ref="error" />
@@ -57,7 +57,7 @@
 
     <logger name="sun.rmi.loader" level="WARN"/>
     <logger name="com.zaxxer.hikari" level="WARN"/>
-    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.springframework" level="debug"/>
     <logger name="org.apache.http" level="WARN"/>
     <logger name="com.ulisesbocchio" level="WARN"/>
     <logger name="com.netflix.discovery" level="WARN"/>

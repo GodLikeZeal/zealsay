@@ -7,6 +7,9 @@ import com.zeal.zealsay.common.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,17 +18,20 @@ import org.springframework.stereotype.Service;
 *@date  2018-04-10  15:42
 *@version 1.0.0
 */
-@Service("userDetailService")
+@Service("userDetailsService")
 public class UserDetailServiceImp implements UserDetailsService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
 //        SysUser userVo = userDao.findUserByUsername(username);
         SysUser userVo = new SysUser();
         userVo.setUsername("zeal");
-        userVo.setPassword("zeal");
+        userVo.setPassword(passwordEncoder.encode("zeal"));
+        userVo.setDelFlag("0");
         return new UserDetailsImpl(userVo);
     }
 }
