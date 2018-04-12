@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeal.admin.modules.authority.dao.SysUserDao">
+    <!--<cache type="com.zeal.shiyulin.common.RedisCache"/>-->
+    <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 只要在对应的mapper配置文件中加入<cache />标签即可-->
+	<!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+	 <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+
+<!--SysUser查询字段-->
+    <sql id="queryColumns">
+    t.id as id,
+    t.user_statu as userStatu,
+    t.create_date as createDate,
+    t.update_date as updateDate,
+    t.is_del as isDel,
+    t.username as username,
+    t.password as password,
+    t.salt as salt,
+    t.phone_number as phoneNumber,
+    t.user_email as userEmail,
+    t.user_qq as userQQ,
+    t.user_openid as userOpenId,
+    t.user_role as userRole
+    </sql>
+
+	<!-- INSERT一条SysUser  -->
+	<insert id="insert" parameterType="com.zeal.zealsay.common.entity.SysUser">
+    	insert into sys_user
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+				id,
+			user_statu,
+			create_date,
+			update_date,
+			is_del,
+			username,
+			password,
+			salt,
+			phone_number,
+			user_email,
+			user_qq,
+			user_openid,
+			user_role,
+
+       </trim>
+       <trim prefix="values (" suffix=")" suffixOverrides="," >
+    			#{id},
+			#{userStatu},
+			#{createDate},
+			#{updateDate},
+			#{isDel},
+			#{username},
+			#{password},
+			#{salt},
+			#{phoneNumber},
+			#{userEmail},
+			#{userQQ},
+			#{userOpenId},
+			#{userRole},
+
+    	</trim>
+	</insert>
+
+	<!-- 根据id来UPDATE SysUser-->
+	<update id="update" parameterType="com.zeal.zealsay.common.entity.SysUser">
+    	update sys_user
+    	 <trim prefix="set" suffixOverrides=",">
+    			<if test="userStatuChanged==true">
+			  user_statu=#{userStatu},
+			</if>
+			<if test="createDateChanged==true">
+			  create_date=#{createDate},
+			</if>
+			<if test="updateDateChanged==true">
+			  update_date=#{updateDate},
+			</if>
+			<if test="isDelChanged==true">
+			  is_del=#{isDel},
+			</if>
+			<if test="usernameChanged==true">
+			  username=#{username},
+			</if>
+			<if test="passwordChanged==true">
+			  password=#{password},
+			</if>
+			<if test="saltChanged==true">
+			  salt=#{salt},
+			</if>
+			<if test="phoneNumberChanged==true">
+			  phone_number=#{phoneNumber},
+			</if>
+			<if test="userEmailChanged==true">
+			  user_email=#{userEmail},
+			</if>
+			<if test="userQQChanged==true">
+			  user_qq=#{userQQ},
+			</if>
+			<if test="userOpenIdChanged==true">
+			  user_openid=#{userOpenId},
+			</if>
+			<if test="userRoleChanged==true">
+			  user_role=#{userRole},
+			</if>
+
+      </trim>
+    	where id = #{id}
+
+    </update>
+
+    <!-- 根据条件来伪删除SysUser  -->
+	<update id="del" parameterType="com.zeal.zealsay.common.entity.SysUser">
+		update sys_user set is_del=${DEL_FLAG_DEL}
+		<include refid="whereCause"></include>
+	</update>
+
+	<!-- 根据id来伪删除一条SysUser  -->
+    <update id="delById" parameterType="java.lang.String">
+		update sys_user set is_del=${DEL_FLAG_DEL}
+		where id = #{id}
+
+	</update>
+
+	<!-- 根据条件来DELETESysUser  -->
+	<delete id="delete" parameterType="com.zeal.zealsay.common.entity.SysUser">
+		delete from sys_user t
+		<include refid="whereCause"></include>
+	</delete>
+
+		<!-- 根据id来DELETE一条SysUser  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+		delete from sys_user
+		where id = #{id}
+
+	</delete>
+
+
+	<sql id="whereCause">
+		<where>
+            <choose>
+                <when test="islike==1">
+                  <if test="id != null">
+                     and t.id LIKE  CONCAT('%',#{id},'%')
+                  </if>
+                  <if test="userStatu != null">
+                     and t.user_statu LIKE  CONCAT('%',#{userStatu},'%')
+                  </if>
+                  <if test="createDate != null">
+                     and t.create_date LIKE  CONCAT('%',#{createDate},'%')
+                  </if>
+                  <if test="updateDate != null">
+                     and t.update_date LIKE  CONCAT('%',#{updateDate},'%')
+                  </if>
+                  <if test="isDel != null">
+                     and t.is_del LIKE  CONCAT('%',#{isDel},'%')
+                  </if>
+                  <if test="username != null">
+                     and t.username LIKE  CONCAT('%',#{username},'%')
+                  </if>
+                  <if test="password != null">
+                     and t.password LIKE  CONCAT('%',#{password},'%')
+                  </if>
+                  <if test="salt != null">
+                     and t.salt LIKE  CONCAT('%',#{salt},'%')
+                  </if>
+                  <if test="phoneNumber != null">
+                     and t.phone_number LIKE  CONCAT('%',#{phoneNumber},'%')
+                  </if>
+                  <if test="userEmail != null">
+                     and t.user_email LIKE  CONCAT('%',#{userEmail},'%')
+                  </if>
+                  <if test="userQQ != null">
+                     and t.user_qq LIKE  CONCAT('%',#{userQQ},'%')
+                  </if>
+                  <if test="userOpenId != null">
+                     and t.user_openid LIKE  CONCAT('%',#{userOpenId},'%')
+                  </if>
+                  <if test="userRole != null">
+                     and t.user_role LIKE  CONCAT('%',#{userRole},'%')
+                  </if>
+                </when>
+                <otherwise>
+                  <if test="id != null">
+                      and t.id = #{id}
+                  </if>
+                  <if test="userStatu != null">
+                      and t.user_statu = #{userStatu}
+                  </if>
+                  <if test="createDate != null">
+                      and t.create_date = #{createDate}
+                  </if>
+                  <if test="updateDate != null">
+                      and t.update_date = #{updateDate}
+                  </if>
+                  <if test="isDel != null">
+                      and t.is_del = #{isDel}
+                  </if>
+                  <if test="username != null">
+                      and t.username = #{username}
+                  </if>
+                  <if test="password != null">
+                      and t.password = #{password}
+                  </if>
+                  <if test="salt != null">
+                      and t.salt = #{salt}
+                  </if>
+                  <if test="phoneNumber != null">
+                      and t.phone_number = #{phoneNumber}
+                  </if>
+                  <if test="userEmail != null">
+                      and t.user_email = #{userEmail}
+                  </if>
+                  <if test="userQQ != null">
+                      and t.user_qq = #{userQQ}
+                  </if>
+                  <if test="userOpenId != null">
+                      and t.user_openid = #{userOpenId}
+                  </if>
+                  <if test="userRole != null">
+                      and t.user_role = #{userRole}
+                  </if>
+                </otherwise>
+            </choose>
+
+		</where>
+	</sql>
+
+    <!-- 根据ID来查找一条SysUser -->
+    <select id="findById" parameterType="java.lang.String"
+			resultType="com.zeal.zealsay.common.entity.SysUser">
+		select <include refid="queryColumns"></include>
+		from sys_user
+		where id = #{id}
+
+	</select>
+
+    <!-- 根据Class来查找SysUser -->
+	<select id="findByClass" parameterType="com.zeal.zealsay.common.entity.SysUser"
+			resultType="com.zeal.zealsay.common.entity.SysUser">
+		select <include refid="queryColumns"></include>
+		from sys_user t
+		<include refid="whereCause"></include>
+	</select>
+
+<!-- 根据Class来分页查询查找SysUser -->
+	<select id="findByClassPaginate" parameterType="com.zeal.zealsay.common.entity.SysUser"
+			resultType="com.zeal.zealsay.common.entity.SysUser">
+		select * from sys_user t
+		<include refid="whereCause"></include>
+		order by ${order} ${sort} limit  #{start},#{size}
+	</select>
+
+<!-- 根据Class来分页查询查找SysUser的分页总数量 -->
+	<select id="findByClassPaginateCount" parameterType="com.zeal.zealsay.common.entity.SysUser"
+			resultType="long">
+		select count(1) from sys_user t
+		<include refid="whereCause"></include>
+	</select>
+
+
+
+</mapper>
