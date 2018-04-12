@@ -21,6 +21,7 @@ public class AuthApplicationTests {
 	public void testEnvironmentProperties() {
 		System.out.println("******************->"+stringEncryptor.encrypt("zeal"));
 		System.out.println("******************->"+stringEncryptor.encrypt("zeal3230"));
+		System.out.println("******************->"+stringEncryptor.encrypt("$2a$10$XT5zYpF7PnDVl0xeBM/c0Okk3zhTb0fNOJGaOXjqD3WB/hT3AVbcO"));
 	}
 
 }

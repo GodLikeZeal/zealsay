@@ -21,7 +21,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -86,7 +86,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new MyBCryptPasswordEncoder();
     }
 
     @Bean
@@ -97,12 +97,13 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     /**
+     * spring boot 2.0.0后默认的redis的set方法被遗弃，只能用自定义的MyRedisTokenStore
      * tokenstore 定制化处理
      * @return TokenStore
      */
     @Bean
     public TokenStore redisTokenStore() {
-        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        MyRedisTokenStore tokenStore = new MyRedisTokenStore(redisConnectionFactory);
         tokenStore.setPrefix(SecurityConstants.PREFIX);
         return tokenStore;
     }

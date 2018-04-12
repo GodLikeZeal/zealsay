@@ -31,8 +31,7 @@ public class UserDetailsImpl implements UserDetails {
     public UserDetailsImpl(SysUser sysUser) {
         this.username = sysUser.getUsername();
         this.password = sysUser.getPassword();
-        this.status = sysUser.getDelFlag();
-        roleList = sysUser.getRoleList();
+        this.status = sysUser.getIsDel();
     }
 
     @Override

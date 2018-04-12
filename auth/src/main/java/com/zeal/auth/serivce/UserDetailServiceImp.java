@@ -30,7 +30,7 @@ public class UserDetailServiceImp implements UserDetailsService {
 //        SysUser userVo = userDao.findUserByUsername(username);
         SysUser userVo = new SysUser();
         userVo.setUsername("zeal");
-        userVo.setPassword(passwordEncoder.encode("zeal"));
+        userVo.setPassword("zeal");
         userVo.setIsDel("0");
         return new UserDetailsImpl(userVo);
     }
