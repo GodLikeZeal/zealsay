@@ -11,15 +11,20 @@ import java.io.Serializable;
 *@version 1.0.0
 */
 @Data
-public class Result<T> implements Serializable {
+public class Result implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //返回码
     private String code;
     //返回对象
-    private T data;
+    private Object data;
 
-    public Result(T data) {
+    public Result(){
+        super();
+        this.code="ok";
+    }
+
+    public Result(Object data) {
         this.data=data;
         this.code="ok";
     }

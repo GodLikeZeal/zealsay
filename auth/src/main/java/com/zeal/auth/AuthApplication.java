@@ -18,7 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.zeal.auth"})
+@ComponentScan(basePackages = { "com.zeal.auth","com.zeal.zealsay.common."})
 public class AuthApplication {
 
 	public static void main(String[] args) {

@@ -139,8 +139,9 @@ public class SysUserController {
             return new Result(sysUserService.findUserByUsername(username));
         }
         catch(Exception er) {
+            throw new RuntimeException(er.getMessage());
         }
-        return null;
+
     }
     /**
      * 通过phonenumber查找对象
