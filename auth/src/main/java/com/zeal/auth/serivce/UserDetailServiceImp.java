@@ -27,11 +27,7 @@ public class UserDetailServiceImp implements UserDetailsService {
 
     @Override
     public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
-//        SysUser userVo = userDao.findUserByUsername(username);
-        SysUser userVo = new SysUser();
-        userVo.setUsername("zeal");
-        userVo.setPassword("zeal");
-        userVo.setIsDel("0");
+       SysUser userVo = (SysUser) userDao.findUserByUsername(username).getData();
         return new UserDetailsImpl(userVo);
     }
 }

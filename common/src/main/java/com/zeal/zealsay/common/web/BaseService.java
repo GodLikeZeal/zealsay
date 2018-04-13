@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Transactional
 public class BaseService<D extends BaseDao<T>, T > {
-    @Autowired
+    @Autowired(required = false)
     protected D dao;
 
 

@@ -2,7 +2,7 @@ package com.zeal.auth.feign.fallback;
 
 
 import com.zeal.auth.feign.UserDao;
-import com.zeal.zealsay.common.entity.SysUser;
+import com.zeal.zealsay.common.entity.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class UserDaoFallbackService implements UserDao {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public SysUser findUserByUsername(String username) {
+    public Result findUserByUsername(String username) {
         logger.error("调用{}异常:{}", "findUserByUsername", username);
         return null;
     }
@@ -29,7 +29,7 @@ public class UserDaoFallbackService implements UserDao {
      * @return UserVo
      */
     @Override
-    public SysUser findUserByMobile(String mobile) {
+    public Result findUserByMobile(String mobile) {
         logger.error("调用{}异常:{}", "通过手机号查询用户", mobile);
         return null;
     }
@@ -41,7 +41,7 @@ public class UserDaoFallbackService implements UserDao {
      * @return UserVo
      */
     @Override
-    public SysUser findUserByOpenId(String openId) {
+    public Result findUserByOpenId(String openId) {
         logger.error("调用{}异常:{}", "通过OpenId查询用户", openId);
         return null;
     }

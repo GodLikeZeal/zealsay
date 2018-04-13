@@ -21,7 +21,7 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         MobileAuthenticationToken mobileAuthenticationToken = (MobileAuthenticationToken) authentication;
-        SysUser sysUser = userDao.findUserByMobile((String) mobileAuthenticationToken.getPrincipal());
+        SysUser sysUser = (SysUser) userDao.findUserByMobile((String) mobileAuthenticationToken.getPrincipal()).getData();
 
         if (sysUser == null) {
             throw new UsernameNotFoundException("手机号不存在:" + mobileAuthenticationToken.getPrincipal());

@@ -126,4 +126,50 @@ public class SysUserController {
         }
         return null;
     }
+
+    /**
+     * 通过username查找对象
+     * @author zeal
+     * @date 2018-04-11 20:57:21
+     */
+    @RequestMapping(value="/findUserByUsername/{username}",method = RequestMethod.GET)
+    public Result findUserByUsername(@PathVariable String username,HttpServletRequest request,
+                           HttpServletResponse response){
+        try{
+            return new Result(sysUserService.findUserByUsername(username));
+        }
+        catch(Exception er) {
+        }
+        return null;
+    }
+    /**
+     * 通过phonenumber查找对象
+     * @author zeal
+     * @date 2018-04-11 20:57:21
+     */
+    @RequestMapping(value="/findUserByMobile/{mobile}",method = RequestMethod.GET)
+    public Result findUserByPhoneNum(@PathVariable String mobile,HttpServletRequest request,
+                           HttpServletResponse response){
+        try{
+            return new Result(sysUserService.findUserByPhoneNum(mobile));
+        }
+        catch(Exception er) {
+        }
+        return null;
+    }
+    /**
+     * 通过email查找对象
+     * @author zeal
+     * @date 2018-04-11 20:57:21
+     */
+    @RequestMapping(value="/findUserByEmali/{emali}",method = RequestMethod.GET)
+    public Result findUserByEmail(@PathVariable String emali,HttpServletRequest request,
+                           HttpServletResponse response){
+        try{
+            return new Result(sysUserService.findUserByEmail(emali));
+        }
+        catch(Exception er) {
+        }
+        return null;
+    }
 }

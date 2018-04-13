@@ -13,6 +13,10 @@ spring:
          uri: https://github.com/GodLikeZeal/zealsay-config.git
      label: master
      profile: ${spring.profiles.active}
+  output:
+    ansi:
+      enabled: always
+
 
 ---
 spring:

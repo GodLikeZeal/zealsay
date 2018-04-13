@@ -24,3 +24,10 @@
 Application Version: ${application.version}${application.formatted-version}
 Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
 
+
+********************************************************************
+***  Copyright ® 2016-2018   zhangleifor@163.com.                ***
+***                     Powered By zeal                          ***
+***                    All right reserved.                       ***
+********************************************************************
+
