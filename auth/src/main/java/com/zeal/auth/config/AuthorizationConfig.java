@@ -84,11 +84,19 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .checkTokenAccess("permitAll()");
     }
 
+    /**
+     * 自定义加密算法
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new MyBCryptPasswordEncoder();
     }
 
+    /**
+     * jwt转换json加密传输支持
+     * @return
+     */
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter jwtAccessTokenConverter = new ZealJwtAccessTokenConverter();
