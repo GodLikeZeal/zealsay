@@ -4,6 +4,7 @@
  */
 package com.zeal.zealsay.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.zeal.zealsay.common.web.BaseEntity;
@@ -22,7 +23,7 @@ import java.util.Map;
  * @date 2018-04-11 20:57:21
  */
 @Data
-public class SysUser extends BaseEntity<SysUser> {
+public class SysUser extends BaseEntity<SysUser> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected int revision;
 	//属性字段

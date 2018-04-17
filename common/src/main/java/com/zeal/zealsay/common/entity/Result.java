@@ -1,6 +1,8 @@
 package com.zeal.zealsay.common.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -11,20 +13,20 @@ import java.io.Serializable;
 *@version 1.0.0
 */
 @Data
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //返回码
     private String code;
     //返回对象
-    private Object data;
+    private T data;
 
     public Result(){
         super();
         this.code="ok";
     }
 
-    public Result(Object data) {
+    public Result(T data) {
         this.data=data;
         this.code="ok";
     }

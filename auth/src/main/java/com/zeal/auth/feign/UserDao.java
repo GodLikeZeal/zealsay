@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 /**
- * @author lengleng
- * @date 2017/10/31
- */
+*@description 远程用户接口调用
+*@author  zeal
+*@date  2018-04-16  15:36
+*@version 1.0.0
+*/
 @FeignClient(name = "admin", fallback = UserDaoFallbackService.class)
 public interface UserDao {
     /**
