@@ -25,7 +25,12 @@ public class AuthFallbackProvider implements FallbackProvider {
     private static final String AUTH_SERVICE_DISABLE = "授权模块不可用";
 
     @Override
-    public ClientHttpResponse fallbackResponse(Throwable cause) {
+    public String getRoute() {
+        return ServiceNameConstant.AUTH_SERVICE;
+    }
+
+    @Override
+    public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
         return new ClientHttpResponse() {
             @Override
             public HttpStatus getStatusCode() {
@@ -64,11 +69,6 @@ public class AuthFallbackProvider implements FallbackProvider {
                 return headers;
             }
         };
-    }
-
-    @Override
-    public String getRoute() {
-        return ServiceNameConstant.AUTH_SERVICE;
     }
 
 }

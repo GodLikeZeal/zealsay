@@ -3,6 +3,7 @@ package com.zeal.auth.component.mobile;
 import com.zeal.auth.feign.UserDao;
 import com.zeal.auth.util.UserDetailsImpl;
 import com.zeal.zealsay.common.entity.SysUser;
+import com.zeal.zealsay.common.entity.UserVo;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -21,21 +22,21 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         MobileAuthenticationToken mobileAuthenticationToken = (MobileAuthenticationToken) authentication;
-        SysUser sysUser = (SysUser) userDao.findUserByMobile((String) mobileAuthenticationToken.getPrincipal()).getData();
+        UserVo userVo = (UserVo) userDao.findUserByMobile((String) mobileAuthenticationToken.getPrincipal()).getData();
 
-        if (sysUser == null) {
+        if (userVo == null) {
             throw new UsernameNotFoundException("手机号不存在:" + mobileAuthenticationToken.getPrincipal());
         }
 
-        UserDetailsImpl userDetails = buildUserDeatils(sysUser);
+        UserDetailsImpl userDetails = buildUserDeatils(userVo);
 
         MobileAuthenticationToken authenticationToken = new MobileAuthenticationToken(userDetails, userDetails.getAuthorities());
         authenticationToken.setDetails(mobileAuthenticationToken.getDetails());
         return authenticationToken;
     }
 
-    private UserDetailsImpl buildUserDeatils(SysUser sysUser) {
-        return new UserDetailsImpl(sysUser);
+    private UserDetailsImpl buildUserDeatils(UserVo userVo) {
+        return new UserDetailsImpl(userVo);
     }
 
     @Override

@@ -24,10 +24,15 @@ import java.io.InputStream;
 @Component
 public class AdminFallbackProvider implements FallbackProvider {
 
-    private static final String UPMS_SERVICE_DISABLE = "权限管理模块不可用";
+    private static final String ADMIN_SERVICE_DISABLE = "权限管理模块不可用";
 
     @Override
-    public ClientHttpResponse fallbackResponse(Throwable cause) {
+    public String getRoute() {
+        return ServiceNameConstant.UMPS_SERVICE;
+    }
+
+    @Override
+    public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
         return new ClientHttpResponse() {
             @Override
             public HttpStatus getStatusCode() {
@@ -54,8 +59,8 @@ public class AdminFallbackProvider implements FallbackProvider {
                     log.error("调用:{} 异常：{}", getRoute(), cause.getMessage());
                     return new ByteArrayInputStream(cause.getMessage().getBytes());
                 } else {
-                    log.error("调用:{} 异常：{}", getRoute(), UPMS_SERVICE_DISABLE);
-                    return new ByteArrayInputStream(UPMS_SERVICE_DISABLE.getBytes());
+                    log.error("调用:{} 异常：{}", getRoute(), ADMIN_SERVICE_DISABLE);
+                    return new ByteArrayInputStream(ADMIN_SERVICE_DISABLE.getBytes());
                 }
             }
 
@@ -68,13 +73,4 @@ public class AdminFallbackProvider implements FallbackProvider {
         };
     }
 
-    @Override
-    public String getRoute() {
-        return ServiceNameConstant.UMPS_SERVICE;
-    }
-
-    @Override
-    public ClientHttpResponse fallbackResponse() {
-        return fallbackResponse(null);
-    }
 }
