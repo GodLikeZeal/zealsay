@@ -3,6 +3,7 @@ package com.zeal.zealsay.common.entity;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 *@description 用户信息包装对象
@@ -38,5 +39,9 @@ public class UserVo extends SysUser {
      */
     private Date loginTime;
 
+    /**
+     * 角色列表
+     */
+    private List<SysRole> roleList;
 
 }

@@ -5,6 +5,7 @@ import com.zeal.zealsay.common.constant.AuthConstants;
 import com.zeal.zealsay.common.constant.SecurityConstants;
 import com.zeal.zealsay.common.entity.SysRole;
 import com.zeal.zealsay.common.entity.SysUser;
+import com.zeal.zealsay.common.entity.UserVo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,10 +29,11 @@ public class UserDetailsImpl implements UserDetails {
     private String status;
     private List<SysRole> roleList = new ArrayList<>();
 
-    public UserDetailsImpl(SysUser sysUser) {
+    public UserDetailsImpl(UserVo sysUser) {
         this.username = sysUser.getUsername();
         this.password = sysUser.getPassword();
         this.status = sysUser.getIsDel();
+        this.roleList = sysUser.getRoleList();
     }
 
     @Override

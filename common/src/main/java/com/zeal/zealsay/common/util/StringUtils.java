@@ -16,10 +16,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
- * @author ThinkGem
- * @version 2013-05-22
- */
+*@description 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
+*@author  zeal
+*@date  2018-04-23  17:33
+*@version 1.0.0
+*/
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	
     private static final char SEPARATOR = '_';

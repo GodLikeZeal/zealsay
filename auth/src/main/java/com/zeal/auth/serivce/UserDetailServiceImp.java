@@ -6,6 +6,7 @@ import com.zeal.auth.feign.UserDao;
 import com.zeal.auth.util.UserDetailsImpl;
 import com.zeal.zealsay.common.entity.Result;
 import com.zeal.zealsay.common.entity.SysUser;
+import com.zeal.zealsay.common.entity.UserVo;
 import com.zeal.zealsay.common.util.JsonUtils;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UserDetailServiceImp implements UserDetailsService {
     @Override
     public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
        Result result = userDao.findUserByUsername(username);
-        SysUser userVo= null;
+        UserVo userVo= null;
         try {
             userVo = JsonUtils.objectMapper.readValue(JsonUtils.objectMapper.writeValueAsString(result.getData()),new TypeReference<SysUser>(){});
         } catch (IOException e) {

@@ -256,19 +256,18 @@
 	</select>
 
 	<!--根据用户名来查询用户信息-->
-	<select id="findUserByUsername" resultType="com.zeal.zealsay.common.entity.SysUser">
+	<select id="findUserByUsername" resultType="com.zeal.zealsay.common.entity.UserVo">
 		select * from sys_user where username= #{username}
 	</select>
 
 	<!--根据手机号来查询用户信息-->
-	<select id="findUserByPhoneNum" resultType="com.zeal.zealsay.common.entity.SysUser">
+	<select id="findUserByPhoneNum" resultType="com.zeal.zealsay.common.entity.UserVo">
 		select * from sys_user where phone_number= #{phoneNumber}
 	</select>
 
 	<!--根据邮箱来查询用户信息-->
-	<select id="findUserByEmail" resultType="com.zeal.zealsay.common.entity.SysUser">
+	<select id="findUserByEmail" resultType="com.zeal.zealsay.common.entity.UserVo">
 		select * from sys_user where phone_number= #{phoneNumber}
 	</select>
-
 
 </mapper>

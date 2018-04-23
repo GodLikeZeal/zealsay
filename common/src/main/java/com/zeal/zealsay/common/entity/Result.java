@@ -30,4 +30,9 @@ public class Result<T> implements Serializable {
         this.data=data;
         this.code="ok";
     }
+
+    public Result(String code,T data){
+        this.code=code;
+        this.data=data;
+    }
 }

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeal.admin.modules.authority.dao.SysMenuDao">
+    <!--<cache type="com.zeal.shiyulin.common.RedisCache"/>-->
+    <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 只要在对应的mapper配置文件中加入<cache />标签即可-->
+	<!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+	 <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+
+<!--SysMenu查询字段-->
+    <sql id="queryColumns">
+    t.id as id,
+    t.sort as sort,
+    t.type as type,
+    t.create_time as createTime,
+    t.update_time as updateTime,
+    t.is_del as isDel,
+    t.name as name,
+    t.permission as permission,
+    t.path as path,
+    t.url as url,
+    t.method as method,
+    t.parent_id as parentId,
+    t.icon as icon,
+    t.component as component
+    </sql>
+
+	<!-- INSERT一条SysMenu  -->
+	<insert id="insert" parameterType="com.zeal.zealsay.common.entity.SysMenu">
+    	insert into sys_menu
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+				id,
+			sort,
+			type,
+			create_time,
+			update_time,
+			is_del,
+			name,
+			permission,
+			path,
+			url,
+			method,
+			parent_id,
+			icon,
+			component,
+
+       </trim>
+       <trim prefix="values (" suffix=")" suffixOverrides="," >
+    			#{id},
+			#{sort},
+			#{type},
+			#{createTime},
+			#{updateTime},
+			#{isDel},
+			#{name},
+			#{permission},
+			#{path},
+			#{url},
+			#{method},
+			#{parentId},
+			#{icon},
+			#{component},
+
+    	</trim>
+	</insert>
+
+	<!-- 根据id来UPDATE SysMenu-->
+	<update id="update" parameterType="com.zeal.zealsay.common.entity.SysMenu">
+    	update sys_menu
+    	 <trim prefix="set" suffixOverrides=",">
+    			<if test="sortChanged==true">
+			  sort=#{sort},
+			</if>
+			<if test="typeChanged==true">
+			  type=#{type},
+			</if>
+			<if test="createTimeChanged==true">
+			  create_time=#{createTime},
+			</if>
+			<if test="updateTimeChanged==true">
+			  update_time=#{updateTime},
+			</if>
+			<if test="isDelChanged==true">
+			  is_del=#{isDel},
+			</if>
+			<if test="nameChanged==true">
+			  name=#{name},
+			</if>
+			<if test="permissionChanged==true">
+			  permission=#{permission},
+			</if>
+			<if test="pathChanged==true">
+			  path=#{path},
+			</if>
+			<if test="urlChanged==true">
+			  url=#{url},
+			</if>
+			<if test="methodChanged==true">
+			  method=#{method},
+			</if>
+			<if test="parentIdChanged==true">
+			  parent_id=#{parentId},
+			</if>
+			<if test="iconChanged==true">
+			  icon=#{icon},
+			</if>
+			<if test="componentChanged==true">
+			  component=#{component},
+			</if>
+
+      </trim>
+    	where id = #{id}
+
+    </update>
+
+    <!-- 根据条件来伪删除SysMenu  -->
+	<update id="del" parameterType="com.zeal.zealsay.common.entity.SysMenu">
+		update sys_menu set is_del=${DEL_FLAG_DEL}
+		<include refid="whereCause"></include>
+	</update>
+
+	<!-- 根据id来伪删除一条SysMenu  -->
+    <update id="delById" parameterType="java.lang.String">
+		update sys_menu set is_del=${DEL_FLAG_DEL}
+		where id = #{id}
+
+	</update>
+
+	<!-- 根据条件来DELETESysMenu  -->
+	<delete id="delete" parameterType="com.zeal.zealsay.common.entity.SysMenu">
+		delete from sys_menu t
+		<include refid="whereCause"></include>
+	</delete>
+
+		<!-- 根据id来DELETE一条SysMenu  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+		delete from sys_menu
+		where id = #{id}
+
+	</delete>
+
+
+	<sql id="whereCause">
+		<where>
+            <choose>
+                <when test="islike==1">
+                  <if test="id != null">
+                     and t.id LIKE  CONCAT('%',#{id},'%')
+                  </if>
+                  <if test="sort != null">
+                     and t.sort LIKE  CONCAT('%',#{sort},'%')
+                  </if>
+                  <if test="type != null">
+                     and t.type LIKE  CONCAT('%',#{type},'%')
+                  </if>
+                  <if test="createTime != null">
+                     and t.create_time LIKE  CONCAT('%',#{createTime},'%')
+                  </if>
+                  <if test="updateTime != null">
+                     and t.update_time LIKE  CONCAT('%',#{updateTime},'%')
+                  </if>
+                  <if test="isDel != null">
+                     and t.is_del LIKE  CONCAT('%',#{isDel},'%')
+                  </if>
+                  <if test="name != null">
+                     and t.name LIKE  CONCAT('%',#{name},'%')
+                  </if>
+                  <if test="permission != null">
+                     and t.permission LIKE  CONCAT('%',#{permission},'%')
+                  </if>
+                  <if test="path != null">
+                     and t.path LIKE  CONCAT('%',#{path},'%')
+                  </if>
+                  <if test="url != null">
+                     and t.url LIKE  CONCAT('%',#{url},'%')
+                  </if>
+                  <if test="method != null">
+                     and t.method LIKE  CONCAT('%',#{method},'%')
+                  </if>
+                  <if test="parentId != null">
+                     and t.parent_id LIKE  CONCAT('%',#{parentId},'%')
+                  </if>
+                  <if test="icon != null">
+                     and t.icon LIKE  CONCAT('%',#{icon},'%')
+                  </if>
+                  <if test="component != null">
+                     and t.component LIKE  CONCAT('%',#{component},'%')
+                  </if>
+                </when>
+                <otherwise>
+                  <if test="id != null">
+                      and t.id = #{id}
+                  </if>
+                  <if test="sort != null">
+                      and t.sort = #{sort}
+                  </if>
+                  <if test="type != null">
+                      and t.type = #{type}
+                  </if>
+                  <if test="createTime != null">
+                      and t.create_time = #{createTime}
+                  </if>
+                  <if test="updateTime != null">
+                      and t.update_time = #{updateTime}
+                  </if>
+                  <if test="isDel != null">
+                      and t.is_del = #{isDel}
+                  </if>
+                  <if test="name != null">
+                      and t.name = #{name}
+                  </if>
+                  <if test="permission != null">
+                      and t.permission = #{permission}
+                  </if>
+                  <if test="path != null">
+                      and t.path = #{path}
+                  </if>
+                  <if test="url != null">
+                      and t.url = #{url}
+                  </if>
+                  <if test="method != null">
+                      and t.method = #{method}
+                  </if>
+                  <if test="parentId != null">
+                      and t.parent_id = #{parentId}
+                  </if>
+                  <if test="icon != null">
+                      and t.icon = #{icon}
+                  </if>
+                  <if test="component != null">
+                      and t.component = #{component}
+                  </if>
+                </otherwise>
+            </choose>
+
+		</where>
+	</sql>
+
+    <!-- 根据ID来查找一条SysMenu -->
+    <select id="findById" parameterType="java.lang.String"
+			resultType="com.zeal.zealsay.common.entity.SysMenu">
+		select <include refid="queryColumns"></include>
+		from sys_menu
+		where id = #{id}
+
+	</select>
+
+    <!-- 根据Class来查找SysMenu -->
+	<select id="findByClass" parameterType="com.zeal.zealsay.common.entity.SysMenu"
+			resultType="com.zeal.zealsay.common.entity.SysMenu">
+		select <include refid="queryColumns"></include>
+		from sys_menu t
+		<include refid="whereCause"></include>
+	</select>
+
+<!-- 根据Class来分页查询查找SysMenu -->
+	<select id="findByClassPaginate" parameterType="com.zeal.zealsay.common.entity.SysMenu"
+			resultType="com.zeal.zealsay.common.entity.SysMenu">
+		select * from sys_menu t
+		<include refid="whereCause"></include>
+		order by ${order} ${sort} limit  #{start},#{size}
+	</select>
+
+<!-- 根据Class来分页查询查找SysMenu的分页总数量 -->
+	<select id="findByClassPaginateCount" parameterType="com.zeal.zealsay.common.entity.SysMenu"
+			resultType="long">
+		select count(1) from sys_menu t
+		<include refid="whereCause"></include>
+	</select>
+
+
+
+</mapper>

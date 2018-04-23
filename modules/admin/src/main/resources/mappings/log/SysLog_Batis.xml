@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeal.admin.modules.log.dao.SysLogDao">
+    <!--<cache type="com.zeal.shiyulin.common.RedisCache"/>-->
+    <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 只要在对应的mapper配置文件中加入<cache />标签即可-->
+	<!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+	 <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+
+<!--SysLog查询字段-->
+    <sql id="queryColumns">
+    t.id as id,
+    t.method as method,
+    t.params as params,
+    t.time as time,
+    t.exception as exception,
+    t.is_del as isDel,
+    t.type as type,
+    t.service_id as serviceId,
+    t.create_by as createBy,
+    t.create_time as createTime,
+    t.update_time as updateTime,
+    t.remote_addr as remoteAddr,
+    t.user_agent as userAgent,
+    t.request_uri as requestUri
+    </sql>
+
+	<!-- INSERT一条SysLog  -->
+	<insert id="insert" parameterType="com.zeal.zealsay.common.entity.SysLog">
+    	insert into sys_log
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+				id,
+			method,
+			params,
+			time,
+			exception,
+			is_del,
+			type,
+			service_id,
+			create_by,
+			create_time,
+			update_time,
+			remote_addr,
+			user_agent,
+			request_uri,
+
+       </trim>
+       <trim prefix="values (" suffix=")" suffixOverrides="," >
+    			#{id},
+			#{method},
+			#{params},
+			#{time},
+			#{exception},
+			#{isDel},
+			#{type},
+			#{serviceId},
+			#{createBy},
+			#{createTime},
+			#{updateTime},
+			#{remoteAddr},
+			#{userAgent},
+			#{requestUri},
+
+    	</trim>
+	</insert>
+
+	<!-- 根据id来UPDATE SysLog-->
+	<update id="update" parameterType="com.zeal.zealsay.common.entity.SysLog">
+    	update sys_log
+    	 <trim prefix="set" suffixOverrides=",">
+    			<if test="methodChanged==true">
+			  method=#{method},
+			</if>
+			<if test="paramsChanged==true">
+			  params=#{params},
+			</if>
+			<if test="timeChanged==true">
+			  time=#{time},
+			</if>
+			<if test="exceptionChanged==true">
+			  exception=#{exception},
+			</if>
+			<if test="isDelChanged==true">
+			  is_del=#{isDel},
+			</if>
+			<if test="typeChanged==true">
+			  type=#{type},
+			</if>
+			<if test="serviceIdChanged==true">
+			  service_id=#{serviceId},
+			</if>
+			<if test="createByChanged==true">
+			  create_by=#{createBy},
+			</if>
+			<if test="createTimeChanged==true">
+			  create_time=#{createTime},
+			</if>
+			<if test="updateTimeChanged==true">
+			  update_time=#{updateTime},
+			</if>
+			<if test="remoteAddrChanged==true">
+			  remote_addr=#{remoteAddr},
+			</if>
+			<if test="userAgentChanged==true">
+			  user_agent=#{userAgent},
+			</if>
+			<if test="requestUriChanged==true">
+			  request_uri=#{requestUri},
+			</if>
+
+      </trim>
+    	where id = #{id}
+
+    </update>
+
+    <!-- 根据条件来伪删除SysLog  -->
+	<update id="del" parameterType="com.zeal.zealsay.common.entity.SysLog">
+		update sys_log set is_del=${DEL_FLAG_DEL}
+		<include refid="whereCause"></include>
+	</update>
+
+	<!-- 根据id来伪删除一条SysLog  -->
+    <update id="delById" parameterType="java.lang.String">
+		update sys_log set is_del=${DEL_FLAG_DEL}
+		where id = #{id}
+
+	</update>
+
+	<!-- 根据条件来DELETESysLog  -->
+	<delete id="delete" parameterType="com.zeal.zealsay.common.entity.SysLog">
+		delete from sys_log t
+		<include refid="whereCause"></include>
+	</delete>
+
+		<!-- 根据id来DELETE一条SysLog  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+		delete from sys_log
+		where id = #{id}
+
+	</delete>
+
+
+	<sql id="whereCause">
+		<where>
+            <choose>
+                <when test="islike==1">
+                  <if test="id != null">
+                     and t.id LIKE  CONCAT('%',#{id},'%')
+                  </if>
+                  <if test="method != null">
+                     and t.method LIKE  CONCAT('%',#{method},'%')
+                  </if>
+                  <if test="params != null">
+                     and t.params LIKE  CONCAT('%',#{params},'%')
+                  </if>
+                  <if test="time != null">
+                     and t.time LIKE  CONCAT('%',#{time},'%')
+                  </if>
+                  <if test="exception != null">
+                     and t.exception LIKE  CONCAT('%',#{exception},'%')
+                  </if>
+                  <if test="isDel != null">
+                     and t.is_del LIKE  CONCAT('%',#{isDel},'%')
+                  </if>
+                  <if test="type != null">
+                     and t.type LIKE  CONCAT('%',#{type},'%')
+                  </if>
+                  <if test="serviceId != null">
+                     and t.service_id LIKE  CONCAT('%',#{serviceId},'%')
+                  </if>
+                  <if test="createBy != null">
+                     and t.create_by LIKE  CONCAT('%',#{createBy},'%')
+                  </if>
+                  <if test="createTime != null">
+                     and t.create_time LIKE  CONCAT('%',#{createTime},'%')
+                  </if>
+                  <if test="updateTime != null">
+                     and t.update_time LIKE  CONCAT('%',#{updateTime},'%')
+                  </if>
+                  <if test="remoteAddr != null">
+                     and t.remote_addr LIKE  CONCAT('%',#{remoteAddr},'%')
+                  </if>
+                  <if test="userAgent != null">
+                     and t.user_agent LIKE  CONCAT('%',#{userAgent},'%')
+                  </if>
+                  <if test="requestUri != null">
+                     and t.request_uri LIKE  CONCAT('%',#{requestUri},'%')
+                  </if>
+                </when>
+                <otherwise>
+                  <if test="id != null">
+                      and t.id = #{id}
+                  </if>
+                  <if test="method != null">
+                      and t.method = #{method}
+                  </if>
+                  <if test="params != null">
+                      and t.params = #{params}
+                  </if>
+                  <if test="time != null">
+                      and t.time = #{time}
+                  </if>
+                  <if test="exception != null">
+                      and t.exception = #{exception}
+                  </if>
+                  <if test="isDel != null">
+                      and t.is_del = #{isDel}
+                  </if>
+                  <if test="type != null">
+                      and t.type = #{type}
+                  </if>
+                  <if test="serviceId != null">
+                      and t.service_id = #{serviceId}
+                  </if>
+                  <if test="createBy != null">
+                      and t.create_by = #{createBy}
+                  </if>
+                  <if test="createTime != null">
+                      and t.create_time = #{createTime}
+                  </if>
+                  <if test="updateTime != null">
+                      and t.update_time = #{updateTime}
+                  </if>
+                  <if test="remoteAddr != null">
+                      and t.remote_addr = #{remoteAddr}
+                  </if>
+                  <if test="userAgent != null">
+                      and t.user_agent = #{userAgent}
+                  </if>
+                  <if test="requestUri != null">
+                      and t.request_uri = #{requestUri}
+                  </if>
+                </otherwise>
+            </choose>
+
+		</where>
+	</sql>
+
+    <!-- 根据ID来查找一条SysLog -->
+    <select id="findById" parameterType="java.lang.String"
+			resultType="com.zeal.zealsay.common.entity.SysLog">
+		select <include refid="queryColumns"></include>
+		from sys_log
+		where id = #{id}
+
+	</select>
+
+    <!-- 根据Class来查找SysLog -->
+	<select id="findByClass" parameterType="com.zeal.zealsay.common.entity.SysLog"
+			resultType="com.zeal.zealsay.common.entity.SysLog">
+		select <include refid="queryColumns"></include>
+		from sys_log t
+		<include refid="whereCause"></include>
+	</select>
+
+<!-- 根据Class来分页查询查找SysLog -->
+	<select id="findByClassPaginate" parameterType="com.zeal.zealsay.common.entity.SysLog"
+			resultType="com.zeal.zealsay.common.entity.SysLog">
+		select * from sys_log t
+		<include refid="whereCause"></include>
+		order by ${order} ${sort} limit  #{start},#{size}
+	</select>
+
+<!-- 根据Class来分页查询查找SysLog的分页总数量 -->
+	<select id="findByClassPaginateCount" parameterType="com.zeal.zealsay.common.entity.SysLog"
+			resultType="long">
+		select count(1) from sys_log t
+		<include refid="whereCause"></include>
+	</select>
+
+
+
+</mapper>

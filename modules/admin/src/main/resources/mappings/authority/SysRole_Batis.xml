@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zeal.admin.modules.authority.dao.SysRoleDao">
+    <!--<cache type="com.zeal.shiyulin.common.RedisCache"/>-->
+    <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 只要在对应的mapper配置文件中加入<cache />标签即可-->
+	<!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+	 <!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+
+<!--SysRole查询字段-->
+    <sql id="queryColumns">
+    t.id as id,
+    t.role_name as roleName,
+    t.role_code as roleCode,
+    t.role_desc as roleDesc,
+    t.create_time as createTime,
+    t.update_time as updateTime,
+    t.is_del as isDel
+    </sql>
+
+	<!-- INSERT一条SysRole  -->
+	<insert id="insert" parameterType="com.zeal.zealsay.common.entity.SysRole">
+    	insert into sys_role
+    	<trim prefix="(" suffix=")" suffixOverrides="," >
+				id,
+			role_name,
+			role_code,
+			role_desc,
+			create_time,
+			update_time,
+			is_del,
+
+       </trim>
+       <trim prefix="values (" suffix=")" suffixOverrides="," >
+    			#{id},
+			#{roleName},
+			#{roleCode},
+			#{roleDesc},
+			#{createTime},
+			#{updateTime},
+			#{isDel},
+
+    	</trim>
+	</insert>
+
+	<!-- 根据id来UPDATE SysRole-->
+	<update id="update" parameterType="com.zeal.zealsay.common.entity.SysRole">
+    	update sys_role
+    	 <trim prefix="set" suffixOverrides=",">
+    			<if test="roleNameChanged==true">
+			  role_name=#{roleName},
+			</if>
+			<if test="roleCodeChanged==true">
+			  role_code=#{roleCode},
+			</if>
+			<if test="roleDescChanged==true">
+			  role_desc=#{roleDesc},
+			</if>
+			<if test="createTimeChanged==true">
+			  create_time=#{createTime},
+			</if>
+			<if test="updateTimeChanged==true">
+			  update_time=#{updateTime},
+			</if>
+			<if test="isDelChanged==true">
+			  is_del=#{isDel},
+			</if>
+
+      </trim>
+    	where id = #{id}
+
+    </update>
+
+    <!-- 根据条件来伪删除SysRole  -->
+	<update id="del" parameterType="com.zeal.zealsay.common.entity.SysRole">
+		update sys_role set is_del=${DEL_FLAG_DEL}
+		<include refid="whereCause"></include>
+	</update>
+
+	<!-- 根据id来伪删除一条SysRole  -->
+    <update id="delById" parameterType="java.lang.String">
+		update sys_role set is_del=${DEL_FLAG_DEL}
+		where id = #{id}
+
+	</update>
+
+	<!-- 根据条件来DELETESysRole  -->
+	<delete id="delete" parameterType="com.zeal.zealsay.common.entity.SysRole">
+		delete from sys_role t
+		<include refid="whereCause"></include>
+	</delete>
+
+		<!-- 根据id来DELETE一条SysRole  -->
+    <delete id="deleteById" parameterType="java.lang.String">
+		delete from sys_role
+		where id = #{id}
+
+	</delete>
+
+
+	<sql id="whereCause">
+		<where>
+            <choose>
+                <when test="islike==1">
+                  <if test="id != null">
+                     and t.id LIKE  CONCAT('%',#{id},'%')
+                  </if>
+                  <if test="roleName != null">
+                     and t.role_name LIKE  CONCAT('%',#{roleName},'%')
+                  </if>
+                  <if test="roleCode != null">
+                     and t.role_code LIKE  CONCAT('%',#{roleCode},'%')
+                  </if>
+                  <if test="roleDesc != null">
+                     and t.role_desc LIKE  CONCAT('%',#{roleDesc},'%')
+                  </if>
+                  <if test="createTime != null">
+                     and t.create_time LIKE  CONCAT('%',#{createTime},'%')
+                  </if>
+                  <if test="updateTime != null">
+                     and t.update_time LIKE  CONCAT('%',#{updateTime},'%')
+                  </if>
+                  <if test="isDel != null">
+                     and t.is_del LIKE  CONCAT('%',#{isDel},'%')
+                  </if>
+                </when>
+                <otherwise>
+                  <if test="id != null">
+                      and t.id = #{id}
+                  </if>
+                  <if test="roleName != null">
+                      and t.role_name = #{roleName}
+                  </if>
+                  <if test="roleCode != null">
+                      and t.role_code = #{roleCode}
+                  </if>
+                  <if test="roleDesc != null">
+                      and t.role_desc = #{roleDesc}
+                  </if>
+                  <if test="createTime != null">
+                      and t.create_time = #{createTime}
+                  </if>
+                  <if test="updateTime != null">
+                      and t.update_time = #{updateTime}
+                  </if>
+                  <if test="isDel != null">
+                      and t.is_del = #{isDel}
+                  </if>
+                </otherwise>
+            </choose>
+
+		</where>
+	</sql>
+
+    <!-- 根据ID来查找一条SysRole -->
+    <select id="findById" parameterType="java.lang.String"
+			resultType="com.zeal.zealsay.common.entity.SysRole">
+		select <include refid="queryColumns"></include>
+		from sys_role
+		where id = #{id}
+
+	</select>
+
+    <!-- 根据Class来查找SysRole -->
+	<select id="findByClass" parameterType="com.zeal.zealsay.common.entity.SysRole"
+			resultType="com.zeal.zealsay.common.entity.SysRole">
+		select <include refid="queryColumns"></include>
+		from sys_role t
+		<include refid="whereCause"></include>
+	</select>
+
+<!-- 根据Class来分页查询查找SysRole -->
+	<select id="findByClassPaginate" parameterType="com.zeal.zealsay.common.entity.SysRole"
+			resultType="com.zeal.zealsay.common.entity.SysRole">
+		select * from sys_role t
+		<include refid="whereCause"></include>
+		order by ${order} ${sort} limit  #{start},#{size}
+	</select>
+
+<!-- 根据Class来分页查询查找SysRole的分页总数量 -->
+	<select id="findByClassPaginateCount" parameterType="com.zeal.zealsay.common.entity.SysRole"
+			resultType="long">
+		select count(1) from sys_role t
+		<include refid="whereCause"></include>
+	</select>
+
+
+
+</mapper>
