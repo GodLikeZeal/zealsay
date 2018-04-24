@@ -2,6 +2,7 @@ package com.zeal.gateway.feign.fallback;
 
 
 import com.zeal.gateway.feign.MenuDao;
+import com.zeal.zealsay.common.entity.Result;
 import com.zeal.zealsay.common.entity.SysMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ import java.util.Set;
 public class MenuDaoFallback implements MenuDao {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
-    public Set<SysMenu> findMenuByRole(String role) {
+    public Result findMenuByRole(String role) {
         logger.error("调用{}异常{}","findMenuByRole",role);
         return null;
     }

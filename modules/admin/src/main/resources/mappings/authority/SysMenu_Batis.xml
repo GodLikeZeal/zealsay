@@ -267,6 +267,19 @@
 		<include refid="whereCause"></include>
 	</select>
 
+	<!--根据角色名称来查询目录-->
+	<select id="findMenuByRole" resultType="com.zeal.zealsay.common.entity.SysMenu">
+		SELECT
+			m.*
+		FROM
+			sys_menu m
+		INNER JOIN sys_role_menu r ON m.id = r.menu_id
+		INNER JOIN sys_role ro ON ro.id = r.role_id
+		WHERE
+			ro.role_name = #{role}
+			AND ro.is_del = '0'
+			AND m.is_del = '0'
+	</select>
 
 
 </mapper>

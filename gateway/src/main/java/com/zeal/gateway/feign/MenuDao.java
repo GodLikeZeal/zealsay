@@ -2,6 +2,7 @@ package com.zeal.gateway.feign;
 
 
 import com.zeal.gateway.feign.fallback.MenuDaoFallback;
+import com.zeal.zealsay.common.entity.Result;
 import com.zeal.zealsay.common.entity.SysMenu;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,6 @@ public interface MenuDao {
      * @param role 角色名称
      * @return 菜单列表
      */
-    @GetMapping(value = "/menu/findMenuByRole/{role}")
-    Set<SysMenu> findMenuByRole(@PathVariable("role") String role);
+    @GetMapping(value = "/sysMenu/findMenuByRole/{role}")
+    Result findMenuByRole(@PathVariable("role") String role);
 }

@@ -3,8 +3,12 @@ package com.zeal.gateway.service;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.zeal.gateway.feign.MenuDao;
+import com.zeal.zealsay.common.entity.Result;
 import com.zeal.zealsay.common.entity.SysMenu;
+import com.zeal.zealsay.common.entity.SysUser;
+import com.zeal.zealsay.common.util.JsonUtils;
 import com.zeal.zealsay.common.util.StringUtils;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +34,7 @@ public class PermissionService{
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
+    public boolean hasPermission(HttpServletRequest request, Authentication authentication) throws IOException {
         //ele-admin options 跨域配置，现在处理是通过前端配置代理，不使用这种方式，存在风险
 //        if (HttpMethod.OPTIONS.name().equalsIgnoreCase(request.getMethod())) {
 //            return true;
@@ -45,7 +50,8 @@ public class PermissionService{
 
             Set<SysMenu> urls = new HashSet<>();
             for (SimpleGrantedAuthority authority : grantedAuthorityList) {
-                urls.addAll(menuDao.findMenuByRole(authority.getAuthority()));
+                Result result = menuDao.findMenuByRole(authority.getAuthority());
+                urls.addAll(JsonUtils.objectMapper.readValue(JsonUtils.objectMapper.writeValueAsString(result.getData()), new TypeReference<Set<SysMenu>>() {}));
             }
 
             for (SysMenu menu : urls) {

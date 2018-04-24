@@ -36,8 +36,7 @@ public class UserDetailServiceImpl implements UserDetailsService, Serializable {
         Result result = userDao.findUserByUsername(username);
         UserVo userVo = null;
         try {
-            userVo = JsonUtils.objectMapper.readValue(JsonUtils.objectMapper.writeValueAsString(result.getData()), new TypeReference<SysUser>() {
-            });
+            userVo = JsonUtils.objectMapper.readValue(JsonUtils.objectMapper.writeValueAsString(result.getData()), new TypeReference<UserVo>() {});
         } catch (IOException e) {
             e.printStackTrace();
         }

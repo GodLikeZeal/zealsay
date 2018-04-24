@@ -29,7 +29,9 @@ public class UserDetailsImpl implements UserDetails {
         this.username = userVo.getUsername();
         this.password = userVo.getPassword();
         this.status = userVo.getIsDel();
-        roleList = userVo.getRoleList();
+        if (userVo.getRoleList()!=null) {
+            this.roleList = userVo.getRoleList();
+        }
     }
 
     @Override

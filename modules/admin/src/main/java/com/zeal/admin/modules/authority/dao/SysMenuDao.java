@@ -8,6 +8,8 @@ import com.zeal.zealsay.common.annotation.MyBatisDao;
 import com.zeal.zealsay.common.entity.SysMenu;
 import com.zeal.zealsay.common.web.BaseDao;
 
+import java.util.Set;
+
 /**
  * sys_menu数据访问接口
  * 
@@ -17,4 +19,11 @@ import com.zeal.zealsay.common.web.BaseDao;
 @MyBatisDao
 public interface SysMenuDao extends BaseDao<SysMenu> {
 
+    /**
+    *@description 根据角色名称来查询目录
+    *@author  zeal
+    *@date  2018-04-24  14:19
+    *@version 1.0.0
+    */
+    Set<SysMenu>findMenuByRole(String role);
 }

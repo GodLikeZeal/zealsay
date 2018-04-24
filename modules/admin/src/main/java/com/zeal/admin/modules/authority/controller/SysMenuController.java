@@ -126,4 +126,20 @@ public class SysMenuController {
             throw new ZealException("系统异常");
         }
     }
+    /**
+    *@description 根据角色名称来查询目录
+    *@author  zeal
+    *@date  2018-04-24  14:23
+    *@version 1.0.0
+    */
+    @RequestMapping(value = "/findMenuByRole/{role}")
+    public Result findMenuByRole(@PathVariable("role") String role,HttpServletRequest request,
+                                 HttpServletResponse response){
+        try{
+            return new Result(sysMenuService.findMenuByRole(role));
+        }
+        catch(Exception er) {
+            throw new ZealException("系统异常");
+        }
+    }
 }

@@ -39,10 +39,22 @@ ratelimit:
   repository: REDIS
   behind-proxy: true
 policies:
-  pig-upms-service:
+  admin:
     limit: 100
     quota: 100
     refresh-interval: 3
 
-
+urls:
+  anon:
+    - /mobile/**
+    - /auth/**
+    - /admin/code/*
+    - /admin/smsCode/*
+    - /admin/user/info
+    - /admin/menu/userTree
+    - /swagger-resources/**
+    - /swagger-ui.html
+    - /*/v2/api-docs
+    - /swagger/api-docs
+    - /webjars/**
 

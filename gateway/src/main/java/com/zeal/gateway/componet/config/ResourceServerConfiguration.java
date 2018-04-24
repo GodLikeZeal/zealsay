@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurity
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
-*@description
+*@description 资源配置管理
 *@author  zeal
 *@date  2018-04-23  17:50
 *@version 1.0.0
