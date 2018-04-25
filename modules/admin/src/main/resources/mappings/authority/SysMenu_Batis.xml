@@ -239,8 +239,8 @@
     <select id="findById" parameterType="java.lang.String"
 			resultType="com.zeal.zealsay.common.entity.SysMenu">
 		select <include refid="queryColumns"></include>
-		from sys_menu
-		where id = #{id}
+		from sys_menu t
+		where t.id = #{id}
 
 	</select>
 
